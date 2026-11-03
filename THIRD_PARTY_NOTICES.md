@@ -12,5 +12,3 @@ The `lib/` folder contains dependencies used by the application:
 - AbsoluteLayout
 
 The bundled JAR versions and their license terms should be checked against the corresponding upstream projects before redistributing this repository publicly. Preserve any license and notice files required by those projects. The presence of a JAR in this repository does not imply that the School Library application owns that library.
-
-No project-level open-source license has been added. Add one only after confirming that you have the right to license the application's original source code.
