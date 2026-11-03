@@ -87,8 +87,3 @@ Keep your password out of `config.txt`, Java source files, and Git. Use your own
 4. Open the `School-Library` project in NetBeans.
 5. Select **Clean and Build**, then **Run**.
 
-## 8. About existing data
-
-This project does not include live Derby database files. Your database may contain private student, librarian, or circulation records, so keep its files and backups in a secure location rather than adding them to the project or committing them to GitHub.
-
-The included SQL script creates the database structure only; it does not include or transfer existing records. To move records from another database, export them separately and handle the export securely.
