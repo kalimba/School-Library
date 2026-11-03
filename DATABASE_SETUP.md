@@ -1,10 +1,10 @@
-# Database Installation — School Library
+# Set Up the School Library Database
 
-This project uses **Apache Derby Network Server**, not MySQL.
+Follow these steps to configure Apache Derby and run the School Library application. This project uses **Apache Derby Network Server**.
 
-## 1. Database settings
+## 1. Check the database settings
 
-The application reads the host and database name from the fourth and fifth lines of `config.txt`:
+The application reads the database host and name from lines 4 and 5 of `config.txt`:
 
 | Setting | Value |
 |---|---|
@@ -14,14 +14,14 @@ The application reads the host and database name from the fourth and fifth lines
 | Database user / schema | `KGL` |
 | JDBC URL | `jdbc:derby://localhost:1527/KGLLIBRARY;` |
 
-The first three lines of `config.txt` are project-relative paths for the images and backup output. Do not replace them with machine-specific absolute paths.
+Keep the first three lines of `config.txt` as project-relative paths for the images and backup output. This lets the project find those folders without relying on paths specific to one computer.
 
-## 2. Configure Derby authentication
+## 2. Set up Derby authentication
 
-1. Create a folder for Derby's system files, for example `%USERPROFILE%\\SchoolLibraryDerby`.
+1. Create a folder for Derby's system files, such as `%USERPROFILE%\SchoolLibraryDerby`.
 2. Copy `derby.properties.example` into that folder and rename the copy to `derby.properties`.
-3. Replace `CHANGE_ME_TO_A_STRONG_PASSWORD` with a strong password.
-4. Do not commit the real `derby.properties` file to GitHub.
+3. In the copied file, replace `CHANGE_ME_TO_A_STRONG_PASSWORD` with a strong password of your choice.
+4. Keep this password private, and do not add your personal `derby.properties` file to the project or commit it to GitHub.
 
 The file should contain:
 
@@ -34,67 +34,61 @@ derby.drda.host=localhost
 
 ## 3. Start the Derby Network Server
 
-Open PowerShell in the project folder. The required Derby libraries are already in `lib/`.
+Open PowerShell in the project folder. The Derby libraries needed to start the server are included in `lib/`.
 
-Start the server using the Derby system-home folder you created:
+Run this command to start Derby using the system-home folder you created:
 
 ```powershell
-java "-Dderby.system.home=$env:USERPROFILE\\SchoolLibraryDerby" -cp "lib\\derby.jar;lib\\derbynet.jar;lib\\derbyclient.jar" org.apache.derby.drda.NetworkServerControl start -h localhost -p 1527
+java "-Dderby.system.home=$env:USERPROFILE\SchoolLibraryDerby" -cp "lib\derby.jar;lib\derbynet.jar;lib\derbyclient.jar" org.apache.derby.drda.NetworkServerControl start -h localhost -p 1527
 ```
 
-Keep this terminal open while using the application. If Derby is installed separately, you can also start the server using its own Derby tools.
+Leave this PowerShell window open while you use the application. If you have Derby installed separately, you can start its Network Server with the Derby tools instead.
 
 ## 4. Create the database
 
-Create the database `KGLLIBRARY` while authenticating as user `KGL`. For example, with the Derby `ij` tool:
+Connect to `KGLLIBRARY` as user `KGL` and create the database. For example, with the Derby `ij` tool, run:
 
 ```text
 connect 'jdbc:derby://localhost:1527/KGLLIBRARY;create=true;user=KGL;password=YOUR_STRONG_PASSWORD';
 ```
 
-Use the SQL script in the next step to create the application tables.
-
-If the database already exists, connect to it as `KGL` without `create=true`.
+Replace `YOUR_STRONG_PASSWORD` with the password you set in `derby.properties`. If `KGLLIBRARY` already exists, connect as `KGL` without `create=true`.
 
 ## 5. Create the tables and indexes
 
-After connecting to `KGLLIBRARY` as `KGL`, execute:
+After connecting to `KGLLIBRARY` as `KGL`, run:
 
 ```text
 run 'sql/01_create_schema.sql';
 ```
 
-The script creates the `KGL` schema, 12 application tables, primary keys, and the three non-unique indexes found in the supplied database.
+This script creates the `KGL` schema, 12 application tables, their primary keys, and three non-unique indexes. It is intended for a **new, empty database**; do not run it again if the schema or tables already exist.
 
-The source database did not declare foreign-key constraints. The schema file preserves this; it does not invent relationships that were not present in the original database.
+The script does not add foreign-key constraints. The application schema is set up without them.
 
-The script is intended for a **new, empty database**. Do not run it a second time on a database where the schema/tables already exist.
+## 6. Set the application credentials
 
-## 6. Configure the application credentials
-
-The application reads credentials from environment variables. It does not contain a hardcoded database password.
-
-For a temporary PowerShell session:
+The application reads its database username and password from environment variables. Set them in PowerShell for the current session:
 
 ```powershell
 $env:KGL_DB_USER = "KGL"
 $env:KGL_DB_PASSWORD = "YOUR_STRONG_PASSWORD"
 ```
 
-Start NetBeans from that same PowerShell session so the IDE and the application inherit those variables. Alternatively, create Windows user environment variables with these names, then close and reopen NetBeans.
+Start NetBeans from this same PowerShell window so it inherits the variables. You can also set Windows user environment variables with these names; after setting them, close and reopen NetBeans so it picks them up.
 
-Do not put the real password in `config.txt`, Java source files, or Git.
+Keep your password out of `config.txt`, Java source files, and Git. Use your own password in place of `YOUR_STRONG_PASSWORD` wherever it appears in these instructions.
 
 ## 7. Run the application
 
-1. Make sure Derby Network Server is running on `localhost:1527`.
-2. Confirm that `config.txt` contains `localhost` and `KGLLIBRARY` on lines 4 and 5.
-3. Confirm that `KGL_DB_USER` and `KGL_DB_PASSWORD` are available to the NetBeans process.
+1. Make sure the Derby Network Server is running at `localhost:1527`.
+2. Check that lines 4 and 5 of `config.txt` contain `localhost` and `KGLLIBRARY`, respectively.
+3. Check that `KGL_DB_USER` and `KGL_DB_PASSWORD` are available to NetBeans.
 4. Open the `School-Library` project in NetBeans.
-5. Choose **Clean and Build**, then **Run**.
+5. Select **Clean and Build**, then **Run**.
 
-## 8. Existing database and records
+## 8. About existing data
 
-Live Derby database files are not included in the repository. Database files may contain private student, librarian, and circulation records and should not be stored in source control.
+This project does not include live Derby database files. Your database may contain private student, librarian, or circulation records, so keep its files and backups in a secure location rather than adding them to the project or committing them to GitHub.
 
-The included SQL file is a **schema-only** reconstruction from that database. It does not migrate or preserve the existing records. If you need to move existing data, export it separately to a secured backup and import it into the new database after the schema is created. Do not publish that backup in a public repository.
+The included SQL script creates the database structure only; it does not include or transfer existing records. To move records from another database, export them separately and handle the export securely.
