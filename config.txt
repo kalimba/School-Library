@@ -1,0 +1,15 @@
+image
+backup
+backup/SchoolLibraryBackup.zip
+localhost
+KGLLIBRARY
+KIGALI LIBRARY MANAGEMENT SYSTEM
+BACKGROUND.jpg
+registerBook.png
+issueBook.png
+issueComputer.png
+returnBook.png
+returnComputer.png
+settingsOG.png
+backupOG.png
+registerStudent.png

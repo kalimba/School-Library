@@ -1,0 +1,6 @@
+# Copy this file to the Derby system-home directory as derby.properties.
+# Replace the placeholder with a strong password; do not commit the real file.
+derby.connection.requireAuthentication=true
+derby.authentication.provider=BUILTIN
+derby.user.KGL=CHANGE_ME_TO_A_STRONG_PASSWORD
+derby.drda.host=localhost

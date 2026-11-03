@@ -1,0 +1,27 @@
+# NetBeans / Ant generated output
+/build/
+/dist/
+/nbproject/private/
+/.netbeans/
+/*.class
+**/*.class
+
+# Apache Derby database files and logs (never commit live database files)
+**/log/
+**/seg0/
+**/service.properties
+**/db.lck
+derby.log
+*.log
+
+# Local backups and temporary exports
+/backup/*
+!/backup/.gitkeep
+*.bak
+*.tmp
+
+# Local environment / credentials
+.env
+.env.*
+!.env.example
+derby.properties
