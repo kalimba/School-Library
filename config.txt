@@ -4,7 +4,7 @@ backup/SchoolLibraryBackup.zip
 localhost
 KGLLIBRARY
 KIGALI LIBRARY MANAGEMENT SYSTEM
-BACKGROUND.jpg
+BACKGROUND.svg
 registerBook.png
 issueBook.png
 issueComputer.png
@@ -13,3 +13,4 @@ returnComputer.png
 settingsOG.png
 backupOG.png
 registerStudent.png
+

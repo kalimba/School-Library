@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600" role="img" aria-labelledby="title desc">
+  <title id="title">Library logo</title>
+  <desc id="desc">A simple open book beneath a graduation cap, on a calm blue background.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#12345a"/>
+      <stop offset="1" stop-color="#2878a8"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="600" rx="28" fill="url(#bg)"/>
+  <circle cx="400" cy="280" r="190" fill="#ffffff" opacity=".1"/>
+  <path d="M400 236 250 178l150-58 150 58-150 58Z" fill="#f4c95d"/>
+  <path d="M300 202v66c54 22 101 22 100 0v-32M500 202v66c-54 22-101 22-100 0" fill="none" stroke="#f4c95d" stroke-width="15" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M400 238v28" stroke="#f4c95d" stroke-width="12"/>
+  <path d="M400 362c-50-35-105-48-165-35v110c62-11 117 2 165 38 48-36 103-49 165-38V327c-60-13-115 0-165 35Z" fill="#fff" stroke="#dceaf5" stroke-width="10" stroke-linejoin="round"/>
+  <path d="M400 366v109M272 360c42-2 79 9 108 29M528 360c-42-2-79 9-108 29" fill="none" stroke="#2878a8" stroke-width="10" stroke-linecap="round"/>
+  <path d="M400 266v35" stroke="#f4c95d" stroke-width="10" stroke-linecap="round"/>
+</svg>
